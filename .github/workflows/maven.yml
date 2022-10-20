@@ -34,7 +34,7 @@ jobs:
     name: CD
     needs: build
     runs-on: ubuntu-latest
-    
+    if: github.ref == 'refs/heads/main'
     steps:
     - name: Download JAR
       uses: actions/download-artifact@v2
