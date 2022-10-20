@@ -11,9 +11,8 @@ on:
 
 jobs:
   build:
-
+    name: Main CI
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
@@ -32,8 +31,10 @@ jobs:
         path: target/openapi-spring-1.22.1.jar
 
   deploy:
+    name: CD
+    needs: build
     runs-on: ubuntu-latest
-
+    if: github.ref == 'refs/heads/main'
     steps:
     - name: Download JAR
       uses: actions/download-artifact@v2
