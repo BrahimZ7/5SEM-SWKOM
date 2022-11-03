@@ -1,19 +1,15 @@
 package at.fhtw.swen3.persistence;
 
-import java.net.URI;
 import java.util.Objects;
-import at.fhtw.swen3.persistence.Recipient;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import org.openapitools.jackson.nullable.JsonNullable;
-import java.time.OffsetDateTime;
+
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 
-import java.util.*;
 import javax.annotation.Generated;
 
 /**
@@ -21,7 +17,7 @@ import javax.annotation.Generated;
  */
 
 @JsonTypeName("parcel")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-10-17T07:40:13.382299Z[Etc/UTC]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-10-13T12:19:08.753753Z[Etc/UTC]")
 public class Parcel {
 
   @JsonProperty("weight")
