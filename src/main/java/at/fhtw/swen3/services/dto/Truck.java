@@ -1,27 +1,24 @@
-package at.fhtw.swen3.persistence;
+package at.fhtw.swen3.services.dto;
 
-import java.net.URI;
 import java.util.Objects;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import org.openapitools.jackson.nullable.JsonNullable;
-import java.time.OffsetDateTime;
-import javax.validation.Valid;
+
 import javax.validation.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 
-import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * TruckAllOf
+ * Truck
  */
 
-@JsonTypeName("truck_allOf")
+
+@JsonTypeName("truck")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-10-17T07:40:13.382299Z[Etc/UTC]")
-public class TruckAllOf {
+public class Truck extends Hop {
 
   @JsonProperty("regionGeoJson")
   private String regionGeoJson;
@@ -29,7 +26,7 @@ public class TruckAllOf {
   @JsonProperty("numberPlate")
   private String numberPlate;
 
-  public TruckAllOf regionGeoJson(String regionGeoJson) {
+  public Truck regionGeoJson(String regionGeoJson) {
     this.regionGeoJson = regionGeoJson;
     return this;
   }
@@ -38,8 +35,8 @@ public class TruckAllOf {
    * GeoJSON (https://geojson.org/) of the area covered by the truck.
    * @return regionGeoJson
   */
-  
-  @Schema(name = "regionGeoJson", description = "GeoJSON (https://geojson.org/) of the area covered by the truck.", required = false)
+  @NotNull 
+  @Schema(name = "regionGeoJson", description = "GeoJSON (https://geojson.org/) of the area covered by the truck.", required = true)
   public String getRegionGeoJson() {
     return regionGeoJson;
   }
@@ -48,7 +45,7 @@ public class TruckAllOf {
     this.regionGeoJson = regionGeoJson;
   }
 
-  public TruckAllOf numberPlate(String numberPlate) {
+  public Truck numberPlate(String numberPlate) {
     this.numberPlate = numberPlate;
     return this;
   }
@@ -57,14 +54,44 @@ public class TruckAllOf {
    * The truck's number plate.
    * @return numberPlate
   */
-  
-  @Schema(name = "numberPlate", description = "The truck's number plate.", required = false)
+  @NotNull 
+  @Schema(name = "numberPlate", description = "The truck's number plate.", required = true)
   public String getNumberPlate() {
     return numberPlate;
   }
 
   public void setNumberPlate(String numberPlate) {
     this.numberPlate = numberPlate;
+  }
+
+  public Truck hopType(String hopType) {
+    super.setHopType(hopType);
+    return this;
+  }
+
+  public Truck code(String code) {
+    super.setCode(code);
+    return this;
+  }
+
+  public Truck description(String description) {
+    super.setDescription(description);
+    return this;
+  }
+
+  public Truck processingDelayMins(Integer processingDelayMins) {
+    super.setProcessingDelayMins(processingDelayMins);
+    return this;
+  }
+
+  public Truck locationName(String locationName) {
+    super.setLocationName(locationName);
+    return this;
+  }
+
+  public Truck locationCoordinates(GeoCoordinate locationCoordinates) {
+    super.setLocationCoordinates(locationCoordinates);
+    return this;
   }
 
   @Override
@@ -75,20 +102,22 @@ public class TruckAllOf {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    TruckAllOf truckAllOf = (TruckAllOf) o;
-    return Objects.equals(this.regionGeoJson, truckAllOf.regionGeoJson) &&
-        Objects.equals(this.numberPlate, truckAllOf.numberPlate);
+    Truck truck = (Truck) o;
+    return Objects.equals(this.regionGeoJson, truck.regionGeoJson) &&
+        Objects.equals(this.numberPlate, truck.numberPlate) &&
+        super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(regionGeoJson, numberPlate);
+    return Objects.hash(regionGeoJson, numberPlate, super.hashCode());
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class TruckAllOf {\n");
+    sb.append("class Truck {\n");
+    sb.append("    ").append(toIndentedString(super.toString())).append("\n");
     sb.append("    regionGeoJson: ").append(toIndentedString(regionGeoJson)).append("\n");
     sb.append("    numberPlate: ").append(toIndentedString(numberPlate)).append("\n");
     sb.append("}");
