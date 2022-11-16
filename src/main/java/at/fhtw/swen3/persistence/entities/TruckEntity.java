@@ -1,6 +1,5 @@
-package at.fhtw.swen3.persistence.entity;
+package at.fhtw.swen3.persistence.entities;
 
-import at.fhtw.swen3.services.dto.GeoCoordinate;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
