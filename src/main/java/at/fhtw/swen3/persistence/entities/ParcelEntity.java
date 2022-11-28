@@ -5,10 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -21,6 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 public class ParcelEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Pattern(regexp = "^[A-Z0-9]{9}$")
@@ -31,10 +29,12 @@ public class ParcelEntity {
 
     @NotNull
     @OneToOne
+    @JoinColumn
     private RecipientEntity recipient;
 
     @NotNull
     @OneToOne
+    @JoinColumn
     private RecipientEntity sender;
 
     private TrackingInformation.StateEnum state;
