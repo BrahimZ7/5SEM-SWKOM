@@ -4,8 +4,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.Pattern;
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -13,6 +15,7 @@ import javax.validation.constraints.Pattern;
 @NoArgsConstructor
 public class RecipientEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Pattern(regexp = "^[a-zA-Z0-9_]*$")
