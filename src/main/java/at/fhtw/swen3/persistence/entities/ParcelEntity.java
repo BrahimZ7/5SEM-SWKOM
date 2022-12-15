@@ -37,6 +37,7 @@ public class ParcelEntity {
     @JoinColumn
     private RecipientEntity sender;
 
+    @NotNull
     private TrackingInformation.StateEnum state;
 
     @NotNull
