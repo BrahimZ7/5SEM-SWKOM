@@ -15,13 +15,11 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Builder
 @Table(name = "PARCEL")
 public class ParcelEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @Pattern(regexp = "^[A-Z0-9]{9}$")
     private String trackingId;
 
@@ -29,22 +27,20 @@ public class ParcelEntity {
     private Float weight;
 
     @NotNull
-    @OneToOne
-    @JoinColumn
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "RECIPIENT_ID")
     private RecipientEntity recipient;
 
     @NotNull
-    @OneToOne
-    @JoinColumn
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "SENDER_ID")
     private RecipientEntity sender;
 
     private TrackingInformation.StateEnum state;
 
-    @NotNull
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<HopArrivalEntity> visitedHops = new ArrayList<>();
 
-    @NotNull
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<HopArrivalEntity> futureHops = new ArrayList<>();
 }

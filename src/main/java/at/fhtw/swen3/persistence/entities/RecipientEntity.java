@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -21,7 +22,7 @@ public class RecipientEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Pattern(regexp = "^[a-zA-Z0-9_]*$")
+    @Pattern(regexp = "^[a-zA-Z ]*$")
     private String name;
 
     @Pattern(regexp = "^[A-Za-zäöüß]+[0-9a-z]+")
@@ -33,6 +34,12 @@ public class RecipientEntity {
     @Pattern(regexp = "^[A-ZÄÜÖß].[A-ZÄÜÖa-zöäüß-]+")
     private String city;
 
-    @Pattern(regexp = "^.(Österreich|Austria).$")
+    @Pattern(regexp = "^(Österreich|Austria)$")
     private String country;
+
+    @OneToOne(mappedBy = "recipient", cascade = CascadeType.ALL)
+    private ParcelEntity recipientOfParcel;
+
+    @OneToOne(mappedBy = "sender", cascade = CascadeType.ALL)
+    private ParcelEntity senderOfParcel;
 }

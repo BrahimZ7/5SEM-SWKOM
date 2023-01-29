@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.context.request.NativeWebRequest;
 
+import java.io.IOException;
 import java.util.Optional;
 import javax.annotation.Generated;
 import javax.validation.Valid;
@@ -38,7 +39,7 @@ public class ParcelApiController implements ParcelApi {
     }
 
     @Override
-    public ResponseEntity<NewParcelInfo> submitParcel(@RequestBody Parcel parcel) {
+    public ResponseEntity<NewParcelInfo> submitParcel(@RequestBody Parcel parcel) throws IOException, InterruptedException {
         var newParcelInfo = parcelService.submitParcel(parcel);
         return new ResponseEntity<NewParcelInfo>(newParcelInfo, HttpStatus.CREATED);
     }

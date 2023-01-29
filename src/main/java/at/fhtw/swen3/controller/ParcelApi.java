@@ -25,6 +25,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+import java.io.IOException;
 import java.util.Optional;
 import javax.annotation.Generated;
 
@@ -138,7 +139,7 @@ public interface ParcelApi {
     )
     default ResponseEntity<NewParcelInfo> submitParcel(
         @Parameter(name = "Parcel", description = "", required = true) @Valid @RequestBody Parcel parcel
-    ) {
+    ) throws IOException, InterruptedException {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {

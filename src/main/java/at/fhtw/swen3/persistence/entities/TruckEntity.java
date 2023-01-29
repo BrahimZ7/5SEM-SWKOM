@@ -1,8 +1,6 @@
 package at.fhtw.swen3.persistence.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Generated;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.Type;
 
@@ -15,6 +13,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
+@Getter
+@Setter
 @Table(name = "TRUCK")
 public class TruckEntity extends HopEntity {
     @Id
@@ -24,6 +24,7 @@ public class TruckEntity extends HopEntity {
     @Lob
     @Type(type = "org.hibernate.type.TextType")
     private String regionGeoJson;
-    private String numberPlate;
 
+    @Column(name = "numberPlate")
+    private String numberPlate;
 }

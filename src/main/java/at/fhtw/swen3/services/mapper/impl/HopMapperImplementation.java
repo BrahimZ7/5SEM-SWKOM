@@ -30,7 +30,7 @@ public class HopMapperImplementation implements HopMapper {
     public Hop entityToDto(HopEntity hop) {
         if (hop instanceof TransferwarehouseEntity) {
             return TransferwarehouseMapper.INSTANCE.entityToDto((TransferwarehouseEntity) hop);
-        } else if (hop instanceof TruckEntity){
+        } else if (hop instanceof TruckEntity) {
             return TruckMapper.INSTANCE.entityToDto((TruckEntity) hop);
         } else if (hop instanceof WarehouseEntity) {
             return WarehouseMapper.INSTANCE.entityToDto((WarehouseEntity) hop);

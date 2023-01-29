@@ -12,6 +12,7 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 @Entity(name = "GEO_COORDINATE")
 public class GeoCoordinateEntity {
     @Id

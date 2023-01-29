@@ -23,12 +23,5 @@ public class HopArrivalEntity {
     private String code;
     private String description;
 
-    @NotNull
     private OffsetDateTime dateTime;
-
-    public HopArrivalEntity(String code, String description, OffsetDateTime dateTime) {
-        this.code = code;
-        this.description = description;
-        this.dateTime = dateTime;
-    }
 }
