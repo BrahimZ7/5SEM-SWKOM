@@ -1,9 +1,7 @@
 package at.fhtw.swen3.persistence.entities;
 
 import at.fhtw.swen3.services.dto.TrackingInformation;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
@@ -16,11 +14,12 @@ import java.util.List;
 @Getter
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@Builder
+@Table(name = "PARCEL")
 public class ParcelEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @Pattern(regexp = "^[A-Z0-9]{9}$")
     private String trackingId;
 
@@ -28,43 +27,20 @@ public class ParcelEntity {
     private Float weight;
 
     @NotNull
-    @OneToOne
-    @JoinColumn
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "RECIPIENT_ID")
     private RecipientEntity recipient;
 
     @NotNull
-    @OneToOne
-    @JoinColumn
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "SENDER_ID")
     private RecipientEntity sender;
 
-    @NotNull
     private TrackingInformation.StateEnum state;
 
-    @NotNull
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<HopArrivalEntity> visitedHops = new ArrayList<>();
 
-    @NotNull
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<HopArrivalEntity> futureHops = new ArrayList<>();
-
-    public ParcelEntity(
-            String trackingId,
-            Float weight,
-            RecipientEntity recipient,
-            RecipientEntity sender,
-            TrackingInformation.StateEnum state,
-            List<HopArrivalEntity> visitedHops,
-            List<HopArrivalEntity> futureHops
-    ) {
-        this.trackingId = trackingId;
-        this.weight = weight;
-        this.recipient = recipient;
-        this.sender = sender;
-        this.state = state;
-        this.visitedHops = visitedHops;
-        this.futureHops = futureHops;
-    }
-
-
 }

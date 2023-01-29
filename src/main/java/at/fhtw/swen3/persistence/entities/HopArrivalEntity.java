@@ -13,6 +13,7 @@ import java.time.OffsetDateTime;
 @Setter
 @Entity
 @NoArgsConstructor
+@Table(name = "HOP_ARRIVAL")
 public class HopArrivalEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,17 +23,5 @@ public class HopArrivalEntity {
     private String code;
     private String description;
 
-    @NotNull
-    @OneToOne
-    @JoinColumn
-    private ParcelEntity parcel;
-
-    @NotNull
     private OffsetDateTime dateTime;
-
-    public HopArrivalEntity(String code, String description, OffsetDateTime dateTime) {
-        this.code = code;
-        this.description = description;
-        this.dateTime = dateTime;
-    }
 }
