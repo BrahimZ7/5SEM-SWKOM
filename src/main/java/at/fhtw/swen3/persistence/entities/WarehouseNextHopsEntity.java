@@ -1,15 +1,18 @@
 package at.fhtw.swen3.persistence.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @NoArgsConstructor
+@SuperBuilder
+@AllArgsConstructor
+@Table(name = "WAREHOUSE_NEXT_HOPS")
 public class WarehouseNextHopsEntity {
     @Id
     @GeneratedValue()
@@ -17,11 +20,11 @@ public class WarehouseNextHopsEntity {
     private Integer traveltimeMins;
 
     @NotNull
-    @OneToOne
+    @Valid
+    @OneToOne(mappedBy = "warehouseNextHops", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private HopEntity hop;
 
-    public WarehouseNextHopsEntity(Integer traveltimeMins, HopEntity hop) {
-        this.traveltimeMins = traveltimeMins;
-        this.hop = hop;
-    }
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "WAREHOUSE_ID")
+    private WarehouseEntity warehouse;
 }

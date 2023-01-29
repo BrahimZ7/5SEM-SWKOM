@@ -1,7 +1,9 @@
 package at.fhtw.swen3.persistence.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Generated;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +12,9 @@ import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
+@SuperBuilder
+@Table(name = "TRUCK")
 public class TruckEntity extends HopEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,9 +22,4 @@ public class TruckEntity extends HopEntity {
     private String regionGeoJson;
     private String numberPlate;
 
-    public TruckEntity(String regionGeoJson, String numberPlate, String hopType, String code, String description, Integer processingDelayMins, String locationName, GeoCoordinateEntity locationCoordinates) {
-        super(hopType, code, description, processingDelayMins, locationName, locationCoordinates);
-        this.regionGeoJson = regionGeoJson;
-        this.numberPlate = numberPlate;
-    }
 }

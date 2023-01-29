@@ -1,6 +1,10 @@
 package at.fhtw.swen3.persistence.entities;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.Singular;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -9,18 +13,15 @@ import java.util.List;
 
 @Entity
 @NoArgsConstructor
-public class WarehouseEntity {
-    @Id
-    @GeneratedValue()
-    private Long id;
+@Getter
+@Setter
+@SuperBuilder
+@Table(name = "WAREHOUSE")
+public class WarehouseEntity extends HopEntity {
     private Integer level;
 
     @NotNull
-    @OneToMany
-    private List<WarehouseNextHopsEntity> nextHops = new ArrayList<>();
-
-    public WarehouseEntity(Integer level, List<WarehouseNextHopsEntity> nextHops) {
-        this.level = level;
-        this.nextHops = nextHops;
-    }
+    @Singular
+    @OneToMany(mappedBy = "warehouse", cascade = CascadeType.ALL, fetch=FetchType.EAGER, orphanRemoval = true)
+    private List<WarehouseNextHopsEntity> nextHops;
 }

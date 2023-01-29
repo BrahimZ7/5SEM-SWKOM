@@ -1,9 +1,7 @@
 package at.fhtw.swen3.persistence.entities;
 
 import at.fhtw.swen3.services.dto.TrackingInformation;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
@@ -16,6 +14,9 @@ import java.util.List;
 @Getter
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Table(name = "PARCEL")
 public class ParcelEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,24 +47,4 @@ public class ParcelEntity {
     @NotNull
     @OneToMany
     private List<HopArrivalEntity> futureHops = new ArrayList<>();
-
-    public ParcelEntity(
-            String trackingId,
-            Float weight,
-            RecipientEntity recipient,
-            RecipientEntity sender,
-            TrackingInformation.StateEnum state,
-            List<HopArrivalEntity> visitedHops,
-            List<HopArrivalEntity> futureHops
-    ) {
-        this.trackingId = trackingId;
-        this.weight = weight;
-        this.recipient = recipient;
-        this.sender = sender;
-        this.state = state;
-        this.visitedHops = visitedHops;
-        this.futureHops = futureHops;
-    }
-
-
 }

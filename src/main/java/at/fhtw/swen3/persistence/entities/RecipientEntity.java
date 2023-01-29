@@ -1,5 +1,6 @@
 package at.fhtw.swen3.persistence.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,8 @@ import javax.persistence.*;
 @Setter
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "RECIPIENT")
 public class RecipientEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,12 +35,4 @@ public class RecipientEntity {
 
     @Pattern(regexp = "^.(Österreich|Austria).$")
     private String country;
-
-    public RecipientEntity(String name, String street, String postalCode, String city, String country) {
-        this.name = name;
-        this.street = street;
-        this.postalCode = postalCode;
-        this.city = city;
-        this.country = country;
-    }
 }

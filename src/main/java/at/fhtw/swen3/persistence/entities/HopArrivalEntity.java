@@ -13,6 +13,7 @@ import java.time.OffsetDateTime;
 @Setter
 @Entity
 @NoArgsConstructor
+@Table(name = "HOP_ARRIVAL")
 public class HopArrivalEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,11 +22,6 @@ public class HopArrivalEntity {
     @Pattern(regexp = "^[A-Z]{4}\\d{1,4}$")
     private String code;
     private String description;
-
-    @NotNull
-    @OneToOne
-    @JoinColumn
-    private ParcelEntity parcel;
 
     @NotNull
     private OffsetDateTime dateTime;
