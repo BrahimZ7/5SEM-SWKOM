@@ -18,5 +18,6 @@ public class GeoCoordinateEntity {
     @GeneratedValue()
     private Long id;
 
-    private Point location;
+    private Double lat;
+    private Double lon;
 }

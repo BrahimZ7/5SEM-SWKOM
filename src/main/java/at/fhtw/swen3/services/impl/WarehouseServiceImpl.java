@@ -1,8 +1,8 @@
 package at.fhtw.swen3.services.impl;
 
+import at.fhtw.swen3.services.mapper.WarehouseMapperContext;
 import at.fhtw.swen3.services.mapper.WarehouseMapper;
 import org.springframework.stereotype.Service;
-import at.fhtw.swen3.persistence.entities.WarehouseEntity;
 import at.fhtw.swen3.persistence.repositories.WarehouseRepository;
 import at.fhtw.swen3.services.WarehouseService;
 import at.fhtw.swen3.services.dto.Hop;
@@ -20,7 +20,7 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Override
     public void importWarehouses(Warehouse warehouse) {
 
-        var warehouseEntity = WarehouseMapper.INSTANCE.dtoToEntity(warehouse);
+        var warehouseEntity = WarehouseMapper.INSTANCE.dtoToEntity(warehouse, new WarehouseMapperContext());
 
         warehouseRepository.deleteAll();
         warehouseRepository.save(warehouseEntity);

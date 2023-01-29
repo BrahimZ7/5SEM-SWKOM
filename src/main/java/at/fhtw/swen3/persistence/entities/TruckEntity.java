@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Generated;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,6 +20,9 @@ public class TruckEntity extends HopEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Lob
+    @Type(type = "org.hibernate.type.TextType")
     private String regionGeoJson;
     private String numberPlate;
 

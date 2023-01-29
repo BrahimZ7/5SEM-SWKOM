@@ -1,6 +1,7 @@
 package at.fhtw.swen3.controller.rest;
 
 import at.fhtw.swen3.controller.ParcelApi;
+import at.fhtw.swen3.services.ParcelService;
 import at.fhtw.swen3.services.dto.NewParcelInfo;
 import at.fhtw.swen3.services.dto.Parcel;
 import at.fhtw.swen3.services.dto.TrackingInformation;
@@ -22,11 +23,13 @@ import javax.validation.constraints.Pattern;
 @Controller
 public class ParcelApiController implements ParcelApi {
 
+    private final ParcelService parcelService;
     private final NativeWebRequest request;
 
     @Autowired
-    public ParcelApiController(NativeWebRequest request) {
+    public ParcelApiController(NativeWebRequest request, ParcelService parcelService) {
         this.request = request;
+        this.parcelService = parcelService;
     }
 
     @Override
@@ -35,31 +38,26 @@ public class ParcelApiController implements ParcelApi {
     }
 
     @Override
-    public ResponseEntity<NewParcelInfo> submitParcel(
-            @Parameter(name = "Parcel", description = "", required = true) @Valid @RequestBody Parcel parcel
-    ) {
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<NewParcelInfo> submitParcel(@RequestBody Parcel parcel) {
+        var newParcelInfo = parcelService.submitParcel(parcel);
+        return new ResponseEntity<NewParcelInfo>(newParcelInfo, HttpStatus.CREATED);
     }
 
     @Override
-    public ResponseEntity<NewParcelInfo> transitionParcel(
-            @Pattern(regexp = "^[A-Z0-9]{9}$") @Parameter(name = "trackingId", description = "The tracking ID of the parcel. E.g. PYJRB4HZ6 ", required = true) @PathVariable("trackingId") String trackingId,
-            @Parameter(name = "Parcel", description = "", required = true) @Valid @RequestBody Parcel parcel
-    ) {
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<NewParcelInfo> transitionParcel(@PathVariable("trackingId") String trackingId, @RequestBody Parcel parcel) {
+        var newParcelInfo = parcelService.transitionParcel(parcel, trackingId);
+        return new ResponseEntity<NewParcelInfo>(newParcelInfo, HttpStatus.CREATED);
     }
 
     @Override
-    public ResponseEntity<TrackingInformation> trackParcel(
-            @Pattern(regexp = "^[A-Z0-9]{9}$") @Parameter(name = "trackingId", description = "The tracking ID of the parcel. E.g. PYJRB4HZ6 ", required = true) @PathVariable("trackingId") String trackingId
-    ) {
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<TrackingInformation> trackParcel(@PathVariable("trackingId") String trackingId) {
+        var trackingInformation = parcelService.trackParcel(trackingId);
+        return new ResponseEntity<TrackingInformation>(trackingInformation, HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<Void> reportParcelDelivery(
-            @Pattern(regexp = "^[A-Z0-9]{9}$") @Parameter(name = "trackingId", description = "The tracking ID of the parcel. E.g. PYJRB4HZ6 ", required = true) @PathVariable("trackingId") String trackingId
-    ) {
+    public ResponseEntity<Void> reportParcelDelivery(@PathVariable("trackingId") String trackingId) {
+        parcelService.reportParcelDelivery(trackingId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

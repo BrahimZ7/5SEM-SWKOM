@@ -1,7 +1,9 @@
 package at.fhtw.swen3.persistence.entities;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
@@ -12,6 +14,8 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @SuperBuilder
 @AllArgsConstructor
+@Setter
+@Getter
 @Table(name = "WAREHOUSE_NEXT_HOPS")
 public class WarehouseNextHopsEntity {
     @Id
@@ -24,7 +28,12 @@ public class WarehouseNextHopsEntity {
     @OneToOne(mappedBy = "warehouseNextHops", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private HopEntity hop;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "WAREHOUSE_ID")
     private WarehouseEntity warehouse;
+
+    public void setHop(HopEntity hop) {
+        this.hop = hop;
+        hop.setWarehouseNextHops(this);
+    }
 }

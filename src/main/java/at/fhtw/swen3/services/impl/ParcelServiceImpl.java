@@ -23,7 +23,12 @@ public class ParcelServiceImpl implements ParcelService {
     public TrackingInformation trackParcel(String trackingId) {
         log.info("Tracking parcel with id {}", trackingId);
 
-        var parcel = parcelRepository.findByTrackingId(trackingId);
+        var parcelEntity = parcelRepository.findByTrackingId(trackingId);
+        var parcelDTO = ParcelMapper.INSTANCE.entityToDto(parcelEntity);
+
+        var trackingInformation = new TrackingInformation();
+
+        trackingInformation.setState(parcelEntity.getState());
 
         return null;
     }
@@ -46,7 +51,6 @@ public class ParcelServiceImpl implements ParcelService {
 
     @Override
     public NewParcelInfo submitParcel(Parcel parcel) {
-        // inputValidator.validate(parcel);
 
         var trackingID = createTrackingID();
 
